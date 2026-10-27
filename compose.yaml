@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: task03-postgres
+    environment:
+      POSTGRES_DB: task03_db
+      POSTGRES_USER: task03_user
+      POSTGRES_PASSWORD: task03_password
+
+    ports:
+      - "5433:5432"
+    volumes:
+      - task03_pgdata:/var/lib/postgresql/data
+
+volumes:
+  task03_pgdata:

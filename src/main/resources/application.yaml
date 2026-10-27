@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: task03
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/task03_db
+    username: task03_user
+    password: task03_password
+
+  sql:
+    init:
+      mode: never
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
