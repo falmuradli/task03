@@ -109,4 +109,98 @@ databaseChangeLog:
 
   - changeSet:
       id: 2
-      author: task03
+      author: developer
+      changes:
+        - createIndex:
+            indexName: idx_customers_company_id
+            tableName: customers
+            columns:
+              - column:
+                  name: company_id
+        - createIndex:
+            indexName: idx_audit_logs_entity_id
+            tableName: audit_logs
+            columns:
+              - column:
+                  name: entity_id
+
+
+  - changeSet:
+      id: 3
+      author: developer
+      changes:
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  value: 11111111-1111-4111-8111-111111111111
+              - column:
+                  name: name
+                  value: Company_01
+              - column:
+                  name: tax_number
+                  value: "1701687402"
+              - column:
+                  name: created_at
+                  value: default
+
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  value: 22222222-2222-4222-8222-222222222222
+              - column:
+                  name: name
+                  value: Company_02
+              - column:
+                  name: tax_number
+                  value: "2944184582"
+              - column:
+                  name: created_at
+                  value: default
+
+        - insert:
+            tableName: customers
+            columns:
+              - column:
+                  name: company_id
+                  value: 33333333-3333-4333-8333-333333333333
+              - column:
+                  name: id
+                  value: deeb9c1a-9161-4f90-8ea6-06aa5241f8c5
+              - column:
+                  name: name
+                  value: "RAUF"
+              - column:
+                  name: email
+                  value: "rauf@ada.edu.az"
+              - column:
+                  name: phone
+                  value: "+994101234567"
+              - column:
+                  name: created_at
+                  value: default
+
+        - insert:
+            tableName: customers
+            columns:
+              - column:
+                  name: company_id
+                  value: 44444444-4444-4444-8444-444444444444
+              - column:
+                  name: id
+                  value: 7b48e475-524d-449e-92f7-f21e48b2debb
+              - column:
+                  name: name
+                  value: "ALI"
+              - column:
+                  name: email
+                  value: "ali@ada.edu.az"
+              - column:
+                  name: phone
+                  value: "+994102345678"
+              - column:
+                  name: created_at
+                  value: default
