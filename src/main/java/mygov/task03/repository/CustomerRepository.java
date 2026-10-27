@@ -1,22 +1,29 @@
 package mygov.task03.repository;
 
-import mygov.task03.model.Customer;
+import mygov.task03.domain.Customer;
+import mygov.task03.domain.CustomerWithCompanyResponse;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerRepository {
 
-    void save(Customer customer);
+    Customer save(Customer customer);
 
-    Customer findById(UUID id);
+    Optional<Customer> findById(UUID id);
 
-    Customer findByCompanyId(UUID companyId, int limit, int offset);
+    List<Customer> findByCompanyId(UUID companyId, int limit, int offset);
 
-    int countAll();
+    List<Customer> findAllPaged(int limit, int offset);
 
-    int countByCompanyId(UUID companyId);
+    long countAll();
+
+    long countByCompanyId(UUID companyId);
 
     boolean existsByEmail(String email);
+
+    Optional<CustomerWithCompanyResponse> findWithCompanyById(UUID id);
 
 
 }

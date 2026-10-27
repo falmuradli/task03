@@ -1,4 +1,4 @@
-package mygov.task03.model;
+package mygov.task03.domain;
 
 import java.util.UUID;
 
