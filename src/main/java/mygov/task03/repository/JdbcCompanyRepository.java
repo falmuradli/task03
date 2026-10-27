@@ -2,11 +2,13 @@ package mygov.task03.repository;
 
 import mygov.task03.domain.Company;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class JdbcCompanyRepository implements CompanyRepository {
 
     private final JdbcClient jdbcClient;
@@ -33,27 +35,29 @@ public class JdbcCompanyRepository implements CompanyRepository {
     public Optional<Company> findById(UUID id) {
         return jdbcClient
                 .sql(""" 
-                        SELECT id, name, tax_number, created_at FROM companies WHERE id = : id""")
+                        SELECT id, name, tax_number, created_at FROM companies WHERE id = :id""")
                 .param("id", id)
                 .query(Company.class)
                 .optional();
     }
 
+
     @Override
     public Optional<Company> findByName(String name) {
         return jdbcClient
                 .sql("""
-                       SELECT id, name, tax_number, created_at FROM companies WHERE name : name""")
+                       SELECT id, name, tax_number, created_at FROM companies WHERE name = :name""")
                 .param("name", name)
                 .query(Company.class)
                 .optional();
     }
 
+
     @Override
     public boolean existsByTaxNumber(String taxNumber) {
         return jdbcClient
                 .sql("""
-                        SELECT id, name, tax_number, created_at FROM companies WHERE taxNumber = :taxNumber""")
+                        SELECT EXISTS (SELECT id, name, tax_number, created_at FROM companies WHERE taxNumber = :taxNumber)""")
                 .param("taxNumber", taxNumber)
                 .query(Boolean.class)
                 .single();
