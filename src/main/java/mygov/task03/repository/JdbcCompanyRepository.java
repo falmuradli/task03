@@ -57,7 +57,7 @@ public class JdbcCompanyRepository implements CompanyRepository {
     public boolean existsByTaxNumber(String taxNumber) {
         return jdbcClient
                 .sql("""
-                        SELECT EXISTS (SELECT id, name, tax_number, created_at FROM companies WHERE taxNumber = :taxNumber)""")
+                        SELECT EXISTS (SELECT 1 FROM companies WHERE taxNumber = :taxNumber)""")
                 .param("taxNumber", taxNumber)
                 .query(Boolean.class)
                 .single();
