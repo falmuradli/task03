@@ -25,10 +25,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public Customer save(Customer customer) {
         jdbcClient
                 .sql("""
-                        INSERT INTO customers(id, companyId, name, email, phone) 
+                        INSERT INTO customers(id, companyId, name, email, phone)\s
                         VALUES (:id, :companyId, :email, :phone, :createdAt)""")
                 .param("id", customer.id())
-                .param("company_id", customer.companyId())
+                .param("companyId", customer.companyId())
                 .param("name", customer.name())
                 .param("email", customer.email())
                 .param("phone", customer.phone())
@@ -88,7 +88,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
         return jdbcClient
                 .sql("""
                         SELECT COUNT(*) FROM customers WHERE companyId = :companyId""")
-                .param("company_id", companyId)
+                .param("companyId", companyId)
                 .query(Long.class)
                 .single();
     }
