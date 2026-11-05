@@ -28,7 +28,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
                         INSERT INTO customers(id, companyId, name, email, phone)\s
                         VALUES (:id, :companyId, :email, :phone, :createdAt)""")
                 .param("id", customer.id())
-                .param("companyId", customer.companyId())
+                .param("company_id", customer.companyId())
                 .param("name", customer.name())
                 .param("email", customer.email())
                 .param("phone", customer.phone())
