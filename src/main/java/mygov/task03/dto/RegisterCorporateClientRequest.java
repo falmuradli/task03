@@ -11,7 +11,7 @@ public record RegisterCorporateClientRequest(
         String companyName,
 
         @NotBlank
-        @Pattern(regexp = "\\d{9}$")
+        @Pattern(regexp = "\\d{10}$")
         String taxNumber,
 
         @NotBlank
@@ -24,7 +24,7 @@ public record RegisterCorporateClientRequest(
         String customerEmail,
 
         @NotBlank
-        @Pattern(regexp = "^\\+994\\d{9}$")
+        @Pattern(regexp = "^\\+994\\d{10}$")
         String customerPhone
 
 ) {}

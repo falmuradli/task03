@@ -1,6 +1,5 @@
 package mygov.task03.service;
 
-import com.sun.jdi.request.DuplicateRequestException;
 import mygov.task03.domain.Company;
 import mygov.task03.domain.CompanySummary;
 import mygov.task03.domain.Customer;
