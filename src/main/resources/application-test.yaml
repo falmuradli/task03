@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: task03
+
+  datasource:
+    url: jdbc:h2:mem:task03_test;MODE=PostgreSQL
+    username: sa
+    password: ""

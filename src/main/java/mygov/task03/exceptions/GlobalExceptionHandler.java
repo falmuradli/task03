@@ -1,5 +1,6 @@
 package mygov.task03.exceptions;
 
+import liquibase.exception.ValidationErrors;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -38,7 +39,13 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleNonValidArgument(MethodArgumentNotValidException exception) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "One or more fields are invalid.");
         problemDetail.setTitle("Validation failed");
-        List<FieldError> errors = exception.getBindingResult().getFieldErrors();
+        var errors = exception.getBindingResult().getFieldErrors().stream()
+                .map(error -> new ValidationError(error.getField(), error.getDefaultMessage()))
+                .toList();
+
+        problemDetail.setProperty("errors", errors);
         return problemDetail;
     }
+
+    private record ValidationError(String field, String message) {}
 }
