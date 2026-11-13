@@ -24,7 +24,7 @@ public record RegisterCorporateClientRequest(
         String customerEmail,
 
         @NotBlank
-        @Pattern(regexp = "^\\+994\\d{10}$")
+        @Pattern(regexp = "^\\+994[0-9]{9}$")
         String customerPhone
 
 ) {}

@@ -205,22 +205,22 @@ public class JdbcCustomerRepositoryTest {
 
         when(jdbcClient.sql(anyString())).thenReturn(statementSpec);
         when(statementSpec.param("id", testCustomerId)).thenReturn(statementSpec);
-        when(statementSpec.param("company_id", testCompanyId)).thenReturn(statementSpec);
+        when(statementSpec.param("companyId", testCompanyId)).thenReturn(statementSpec);
         when(statementSpec.param("name", testCustomer.name())).thenReturn(statementSpec);
         when(statementSpec.param("email", testCustomer.email())).thenReturn(statementSpec);
         when(statementSpec.param("phone", testCustomer.phone())).thenReturn(statementSpec);
-        when(statementSpec.param("created_at", Timestamp.from(testCustomer.createdAt()))).thenReturn(statementSpec);
+        when(statementSpec.param("createdAt", Timestamp.from(testCustomer.createdAt()))).thenReturn(statementSpec);
         when(statementSpec.update()).thenReturn(1);
 
         Customer customer = jdbcCustomerRepository.save(testCustomer);
 
         assertSame(customer, testCustomer);
         verify(statementSpec).param("id", testCustomerId);
-        verify(statementSpec).param("company_id", testCompanyId);
+        verify(statementSpec).param("companyId", testCompanyId);
         verify(statementSpec).param("name", testCustomer.name());
         verify(statementSpec).param("email", testCustomer.email());
         verify(statementSpec).param("phone", testCustomer.phone());
-        verify(statementSpec).param("created_at", Timestamp.from(testCustomer.createdAt()));
+        verify(statementSpec).param("createdAt", Timestamp.from(testCustomer.createdAt()));
         verify(statementSpec).update();
 
 
@@ -236,20 +236,20 @@ public class JdbcCustomerRepositoryTest {
 
         when(jdbcClient.sql(anyString())).thenReturn(statementSpec);
         when(statementSpec.param("id", testCustomerId)).thenReturn(statementSpec);
-        when(statementSpec.param("company_id", testCompanyId)).thenReturn(statementSpec);
+        when(statementSpec.param("companyId", testCompanyId)).thenReturn(statementSpec);
         when(statementSpec.param("name", testCustomer.name())).thenReturn(statementSpec);
         when(statementSpec.param("email", testCustomer.email())).thenReturn(statementSpec);
         when(statementSpec.param("phone", testCustomer.phone())).thenReturn(statementSpec);
-        when(statementSpec.param("created_at", Timestamp.from(testCustomer.createdAt()))).thenReturn(statementSpec);
+        when(statementSpec.param("createdAt", Timestamp.from(testCustomer.createdAt()))).thenReturn(statementSpec);
         when(statementSpec.update()).thenThrow( new DataIntegrityViolationException(""));
 
         assertThrows(DataIntegrityViolationException.class, () -> jdbcCustomerRepository.save(testCustomer));
         verify(statementSpec).param("id", testCustomerId);
-        verify(statementSpec).param("company_id", testCompanyId);
+        verify(statementSpec).param("companyId", testCompanyId);
         verify(statementSpec).param("name", testCustomer.name());
         verify(statementSpec).param("email", testCustomer.email());
         verify(statementSpec).param("phone", testCustomer.phone());
-        verify(statementSpec).param("created_at", Timestamp.from(testCustomer.createdAt()));
+        verify(statementSpec).param("createdAt", Timestamp.from(testCustomer.createdAt()));
         verify(statementSpec).update();
     }
 

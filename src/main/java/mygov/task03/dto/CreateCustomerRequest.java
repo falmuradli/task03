@@ -19,6 +19,6 @@ public record CreateCustomerRequest(
         String email,
 
         @NotBlank
-        @Pattern(regexp = "^\\+994\\d{10}$")
+        @Pattern(regexp = "^\\+994\\d{}$")
         String phone
 ) {}

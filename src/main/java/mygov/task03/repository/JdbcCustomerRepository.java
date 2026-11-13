@@ -25,14 +25,14 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public Customer save(Customer customer) {
         jdbcClient
                 .sql("""
-                        INSERT INTO customers(id, companyId, name, email, phone)\s
-                        VALUES (:id, :companyId, :email, :phone, :createdAt)""")
+                        INSERT INTO customers(id, company_id, name, email, phone, created_at)\s
+                        VALUES (:id, :companyId, :name,:email, :phone, :createdAt)""")
                 .param("id", customer.id())
-                .param("company_id", customer.companyId())
+                .param("companyId", customer.companyId())
                 .param("name", customer.name())
                 .param("email", customer.email())
                 .param("phone", customer.phone())
-                .param("created_at", Timestamp.from(customer.createdAt()))
+                .param("createdAt", Timestamp.from(customer.createdAt()))
                 .update();
         return customer;
     }
@@ -51,8 +51,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public List<Customer> findByCompanyId(UUID companyId, int limit, int offset) {
         return jdbcClient
                 .sql("""
-                        SELECT id, company_id, name, email, phone, created_at FROM customers WHERE companyId = :companyId
-                            ORDER BY created_at, id 
+                        SELECT id, company_id, name, email, phone, created_at FROM customers WHERE company_id = :companyId
+                            ORDER BY created_at, id\s
                             LIMIT :limit OFFSET :offset""" )
                 .param("companyId", companyId)
                 .param("limit", limit)
@@ -65,8 +65,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public List<Customer> findAllPaged(int limit, int offset) {
         return jdbcClient
                 .sql("""
-                        SELECT id, company_id, name, email, phone, created_at FROM customers 
-                        ORDER BY created_at, id 
+                        SELECT id, company_id, name, email, phone, created_at FROM customers\s
+                        ORDER BY created_at, id\s
                         LIMIT :limit OFFSET :offset""")
                 .param("limit", limit)
                 .param("offset", offset)
@@ -87,7 +87,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public long countByCompanyId(UUID companyId) {
         return jdbcClient
                 .sql("""
-                        SELECT COUNT(*) FROM customers WHERE companyId = :companyId""")
+                        SELECT COUNT(*) FROM customers WHERE company_id = :companyId""")
                 .param("companyId", companyId)
                 .query(Long.class)
                 .single();
@@ -107,7 +107,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
     public Optional<CustomerWithCompanyResponse> findWithCompanyById(UUID id) {
         return jdbcClient
                 .sql("""
-                        SELECT 
+                        SELECT\s
                             c.id AS customer_id,
                             c.name AS customer_name,
                             c.email,

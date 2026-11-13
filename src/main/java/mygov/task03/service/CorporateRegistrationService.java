@@ -25,6 +25,7 @@ public class CorporateRegistrationService {
         this.customerRepository = customerRepository;
     }
 
+
     @Transactional
     public CustomerWithCompanyResponse registerCorporateClient(RegisterCorporateClientRequest registerCorporateClientRequest) {
         if(companyRepository.findByName(registerCorporateClientRequest.companyName()).isPresent()) {

@@ -19,12 +19,10 @@ import java.net.URI;
 public class CorporateRegistrationController {
 
     private final CorporateRegistrationService corporateRegistrationService;
-    private final AuditService auditService;
 
     public CorporateRegistrationController(CorporateRegistrationService corporateRegistrationService,
                                            AuditService auditService) {
         this.corporateRegistrationService = corporateRegistrationService;
-        this.auditService = auditService;
     }
 
     @PostMapping("/register")
@@ -38,7 +36,6 @@ public class CorporateRegistrationController {
 
         URI location = URI.create("/api/v1/customers/" + response.id());
 
-        auditService.logAudit(response.company().id(), "COMPANY_REGISTERED", "Company registered");
         return ResponseEntity.created(location).body(response);
 
     }

@@ -21,8 +21,8 @@ public class JdbcAuditRepository implements AuditRepository {
     public void insert(AuditLog auditLog) {
          jdbcClient
                 .sql("""
-                        INSERT INTO audit_logs(id, entityId, action, details, createdAt)
-                        VALUES (:id, :entitId, :action, :details, :createdAt)""")
+                        INSERT INTO audit_logs(id, entity_id, action, details, created_at)
+                        VALUES (:id, :entityId, :action, :details, :createdAt)""")
                 .param("id", auditLog.id())
                 .param("entityId", auditLog.entityId())
                 .param("action", auditLog.action())

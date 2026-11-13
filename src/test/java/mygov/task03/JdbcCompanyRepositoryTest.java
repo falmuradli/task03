@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ExtendWith(MockitoExtension.class)
 public class JdbcCompanyRepositoryTest {
@@ -151,8 +151,8 @@ public class JdbcCompanyRepositoryTest {
         when(jdbcClient.sql(anyString())).thenReturn(statementSpec);
         when(statementSpec.param("id", randomUUId)).thenReturn(statementSpec);
         when(statementSpec.param("name", testCompany.name())).thenReturn(statementSpec);
-        when(statementSpec.param("tax_number", testCompany.taxNumber())).thenReturn(statementSpec);
-        when(statementSpec.param("created_at", Timestamp.from(testCompany.createdAt()))).thenReturn(statementSpec);
+        when(statementSpec.param("taxNumber", testCompany.taxNumber())).thenReturn(statementSpec);
+        when(statementSpec.param("createdAt", Timestamp.from(testCompany.createdAt()))).thenReturn(statementSpec);
         when(statementSpec.update()).thenReturn(1);
 
         Company savedCompany = jdbcCompanyRepository.save(testCompany);
@@ -160,8 +160,8 @@ public class JdbcCompanyRepositoryTest {
         assertSame(testCompany, savedCompany);
         verify(statementSpec).param("id", randomUUId);
         verify(statementSpec).param("name", testCompany.name());
-        verify(statementSpec).param("tax_number", testCompany.taxNumber());
-        verify(statementSpec).param("created_at", Timestamp.from(testCompany.createdAt()));
+        verify(statementSpec).param("taxNumber", testCompany.taxNumber());
+        verify(statementSpec).param("createdAt", Timestamp.from(testCompany.createdAt()));
         verify(statementSpec).update();
     }
 
@@ -175,16 +175,16 @@ public class JdbcCompanyRepositoryTest {
         when(jdbcClient.sql(anyString())).thenReturn(statementSpec);
         when(statementSpec.param("id", randomUUId)).thenReturn(statementSpec);
         when(statementSpec.param("name", testCompany.name())).thenReturn(statementSpec);
-        when(statementSpec.param("tax_number", testCompany.taxNumber())).thenReturn(statementSpec);
-        when(statementSpec.param("created_at", Timestamp.from(testCompany.createdAt()))).thenReturn(statementSpec);
+        when(statementSpec.param("taxNumber", testCompany.taxNumber())).thenReturn(statementSpec);
+        when(statementSpec.param("createdAt", Timestamp.from(testCompany.createdAt()))).thenReturn(statementSpec);
         when(statementSpec.update()).thenThrow( new DataIntegrityViolationException(""));
 
 
         assertThrows(DataIntegrityViolationException.class, () -> jdbcCompanyRepository.save(testCompany));
         verify(statementSpec).param("id", randomUUId);
         verify(statementSpec).param("name", testCompany.name());
-        verify(statementSpec).param("tax_number", testCompany.taxNumber());
-        verify(statementSpec).param("created_at", Timestamp.from(testCompany.createdAt()));
+        verify(statementSpec).param("taxNumber", testCompany.taxNumber());
+        verify(statementSpec).param("createdAt", Timestamp.from(testCompany.createdAt()));
         verify(statementSpec).update();
     }
 }

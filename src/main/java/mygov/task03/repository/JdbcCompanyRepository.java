@@ -21,11 +21,11 @@ public class JdbcCompanyRepository implements CompanyRepository {
     public Company save(Company company) {
          jdbcClient
                 .sql("""
-                        INSERT INTO companies (id, name, tax_number, created_at) VALUES (:id, :name, :tax_number, :created_at)""")
+                        INSERT INTO companies (id, name, tax_number, created_at) VALUES (:id, :name, :taxNumber, :createdAt)""")
                 .param("id", company.id())
                 .param("name", company.name())
-                .param("tax_number", company.taxNumber())
-                .param("created_at", Timestamp.from(company.createdAt()))
+                .param("taxNumber", company.taxNumber())
+                .param("createdAt", Timestamp.from(company.createdAt()))
                 .update();
          return company;
     }
@@ -57,7 +57,7 @@ public class JdbcCompanyRepository implements CompanyRepository {
     public boolean existsByTaxNumber(String taxNumber) {
         return jdbcClient
                 .sql("""
-                        SELECT EXISTS (SELECT 1 FROM companies WHERE taxNumber = :taxNumber)""")
+                        SELECT EXISTS (SELECT 1 FROM companies WHERE tax_number = :taxNumber)""")
                 .param("taxNumber", taxNumber)
                 .query(Boolean.class)
                 .single();
