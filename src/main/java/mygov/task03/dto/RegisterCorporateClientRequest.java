@@ -7,11 +7,11 @@ import jakarta.validation.constraints.Size;
 
 public record RegisterCorporateClientRequest(
         @NotBlank
-        @Size(min = 2, max = 100)
+        @Size(min = 2, max = 150)
         String companyName,
 
         @NotBlank
-        @Pattern(regexp = "\\d{10}$")
+        @Pattern(regexp = "^[0-9]{10}$")
         String taxNumber,
 
         @NotBlank
@@ -21,10 +21,10 @@ public record RegisterCorporateClientRequest(
         @NotBlank
         @Email
         @Size(max = 255)
-        String customerEmail,
+        String email,
 
         @NotBlank
         @Pattern(regexp = "^\\+994[0-9]{9}$")
-        String customerPhone
+        String phone
 
 ) {}

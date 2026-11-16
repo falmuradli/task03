@@ -3,6 +3,7 @@ package mygov.task03.service;
 import mygov.task03.domain.Customer;
 import mygov.task03.domain.CustomerWithCompanyResponse;
 import mygov.task03.dto.PageResponse;
+import mygov.task03.exceptions.InvalidPaginationException;
 import mygov.task03.exceptions.ResourceNotFoundException;
 import mygov.task03.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,18 @@ public class CustomerService {
         long totalCount;
         List<Customer> content;
 
-        if((page < 0) || (1 > size  || size > 100)) throw new IllegalArgumentException("Such inputs are not possible");
+        if (page < 0) {
+            throw new InvalidPaginationException("page", "Page must be zero or greater.");
+        }
+        if (size < 1 || size > 100) {
+            throw new InvalidPaginationException("size", "Size must be between 1 and 100.");
+        }
 
-        long offset = (long) page *size;
-        if(companyId == null) {
+        long offset = (long) page * size;
+        if (offset > Integer.MAX_VALUE) {
+            throw new InvalidPaginationException("page", "Page is too large for the requested size.");
+        }
+        if (companyId == null) {
             content = customerRepository.findAllPaged(size, (int) offset);
             totalCount = customerRepository.countAll();
         } else {

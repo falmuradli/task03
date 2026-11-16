@@ -24,20 +24,20 @@ public class AuditService {
     public void logAudit(UUID entityId, String action, String details) {
         String cleanedDetails = details == null ? null : details.strip();
 
-        AuditLog auditLog = new AuditLog(
+        writeAudit(new AuditLog(
                 UUID.randomUUID(),
                 entityId,
                 action,
                 cleanedDetails,
                 Instant.now()
-        );
+        ));
+    }
 
-
+    void writeAudit(AuditLog auditLog) {
         transactionTemplate.execute(status -> {
             auditRepository.insert(auditLog);
             return null;
         });
-
     }
 
     @Transactional(readOnly = true)

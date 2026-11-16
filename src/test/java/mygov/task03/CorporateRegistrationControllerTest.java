@@ -43,15 +43,15 @@ public class CorporateRegistrationControllerTest {
                     "companyName": "Caspian Tech Solutions",
                     "taxNumber": "5937462910",
                     "customerName": "Leyla Aliyeva",
-                    "customerEmail": "",
-                    "customerPhone": "+9944501234567"
+                    "email": "",
+                    "phone": "+9944501234567"
                 }""";
 
         this.mockMvc.perform(post("/api/v1/corporate/register")
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                 .content(requestBody))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors[*].field").value(hasItem("customerEmail")));
+                .andExpect(jsonPath("$.errors[*].field").value(hasItem("email")));
         verifyNoInteractions(corporateRegistrationService, auditService);
 
     }
@@ -75,8 +75,8 @@ public class CorporateRegistrationControllerTest {
                     "companyName": "Caspian Tech Solutions",
                     "taxNumber": "5937462970",
                     "customerName": "Leyla Aliyeva",
-                    "customerEmail": "leyla@example.com",
-                    "customerPhone": "+994501234567"
+                    "email": "leyla@example.com",
+                    "phone": "+994501234567"
                 }""";
 
         when(corporateRegistrationService.registerCorporateClient(
@@ -100,8 +100,8 @@ public class CorporateRegistrationControllerTest {
                     "companyName": "Caspian Tech Solutions",
                     "taxNumber": "5937462910",
                     "customerName": "Leyla Aliyeva",
-                    "customerEmail": "leyla@example.com",
-                    "customerPhone": "+994501234567"
+                    "email": "leyla@example.com",
+                    "phone": "+994501234567"
                 }""";
 
         when(corporateRegistrationService.registerCorporateClient(

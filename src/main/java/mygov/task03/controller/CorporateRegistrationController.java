@@ -4,7 +4,6 @@ package mygov.task03.controller;
 import jakarta.validation.Valid;
 import mygov.task03.domain.CustomerWithCompanyResponse;
 import mygov.task03.dto.RegisterCorporateClientRequest;
-import mygov.task03.service.AuditService;
 import mygov.task03.service.CorporateRegistrationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +19,7 @@ public class CorporateRegistrationController {
 
     private final CorporateRegistrationService corporateRegistrationService;
 
-    public CorporateRegistrationController(CorporateRegistrationService corporateRegistrationService,
-                                           AuditService auditService) {
+    public CorporateRegistrationController(CorporateRegistrationService corporateRegistrationService) {
         this.corporateRegistrationService = corporateRegistrationService;
     }
 
